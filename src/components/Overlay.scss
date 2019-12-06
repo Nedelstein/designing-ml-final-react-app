@@ -1,0 +1,12 @@
+.overlay {
+  position: fixed;
+  width: 600px;
+  height: 100vh;
+  right: 0;
+  top: 0;
+  background-color: white;
+  color: #222;
+  img {
+    width: 100%;
+  }
+}
