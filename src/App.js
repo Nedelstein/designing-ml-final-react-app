@@ -36,13 +36,15 @@ function App() {
         const presName = positions[i].President;
         const date = positions[i].Date;
         const image = images[j].image;
+        // const filename = image.replace(".jpg", "");
 
         //add image value to position object
         if (presName == images[j].President) {
           positions[i].image = image;
         }
 
-        app.loader.add(presName);
+        app.loader.add(date, "../" + positions[i].image);
+        app.loader.reset();
 
         positionDict[presName] = positions[i];
       }
@@ -67,20 +69,20 @@ function App() {
       .decelerate();
 
     app.loader.load((loader, resources) => {
-      // console.log(resources);
       console.log("app dims:", app.renderer.width, app.renderer.height);
-      // console.log(app.renderer.backgroundColor);
 
-      //this is where you loop through your SOTU addresses
+      //loop through your SOTU addresses
       for (let key in positions) {
-        const imageSprite = new PIXI.Sprite(resources["Lincoln"].texture);
-        // const cluster_pos = positions[key].Cluster_Pos;
+        // const imageSprite = new PIXI.Sprite(resources["Lincoln"].texture);
 
-        // imageSprite.x = app.renderer.width * (cluster_pos[0] * 2 - 1);
-        // imageSprite.y = app.renderer.width * (cluster_pos[1] * 2 - 1);
+        const imageSprite = new PIXI.Sprite(resources[key].texture);
+        const cluster_pos = positions[key].Cluster_Pos;
 
-        imageSprite.x = app.renderer.width * 0.4;
-        imageSprite.y = app.renderer.height * 0.4;
+        imageSprite.x = app.renderer.width * (cluster_pos[0] * 2 - 1);
+        imageSprite.y = app.renderer.width * (cluster_pos[1] * 2 - 1);
+
+        // imageSprite.x = app.renderer.width * 0.4;
+        // imageSprite.y = app.renderer.height * 0.4;
 
         imageSprite.anchor.x = 0.5;
         imageSprite.anchor.y = 0.5;
@@ -107,10 +109,6 @@ function App() {
       }
     });
   });
-  // .catch(err => {
-  //   console.log(err);
-  // });
-  // }, []);
 
   return (
     <div className="App">
