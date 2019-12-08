@@ -15,7 +15,6 @@ function App() {
   // load custer pos onto canvas
   useEffect(() => {
     console.log(positions);
-    // console.log(images);
     const app = new PIXI.Application({
       width: window.innerWidth,
       height: window.innerHeight,
@@ -27,15 +26,14 @@ function App() {
 
     // make photo lookup and tie it to sotu json object
     //loop through photo lookup and load image keyed to pres name
-    const lincoln =
-      "https://raw.githubusercontent.com/Nedelstein/designing-ml-final-react-app/master/resized/resized_president_imgs_01-washington.jpg";
 
-    app.loader.add("Lincoln", lincoln);
     for (let i = 0; i < positions.length; i++) {
       for (let j = 0; j < images.length; j++) {
         const presName = positions[i].President;
         const date = positions[i].Date;
         const image = images[j].image;
+        const name = image.replace(".jpg", "");
+
         // const filename = image.replace(".jpg", "");
 
         //add image value to position object
@@ -43,14 +41,18 @@ function App() {
           positions[i].image = image;
         }
 
-        let displayImg =
+        const displayImg =
           "https://raw.githubusercontent.com/Nedelstein/designing-ml-final-react-app/master/" +
           positions[i].image;
+        // console.log(displayImg);
 
-        app.loader.add(presName, displayImg);
+        // const displayImg =
+        //   "https://raw.githubusercontent.com/Nedelstein/designing-ml-final-react-app/master/resized/resized_president_imgs_04-madison.jpg";
+
         app.loader.reset();
+        app.loader.add(name, displayImg);
 
-        positionDict[presName] = positions[i];
+        positionDict[name] = positions[i];
       }
     }
     const viewport = new Viewport({
@@ -77,38 +79,37 @@ function App() {
 
       //loop through your SOTU addresses
       for (let key in resources) {
+        console.log("working");
         // const imageSprite = new PIXI.Sprite(resources["Lincoln"].texture);
 
         const imageSprite = new PIXI.Sprite(resources[key].texture);
         const cluster_pos = positionDict[key].Cluster_Pos;
+        // console.log(cluster_pos);
 
         imageSprite.x = app.renderer.width * (cluster_pos[0] * 2 - 1);
         imageSprite.y = app.renderer.height * (cluster_pos[1] * 2 - 1);
 
         console.log(imageSprite.x, imageSprite.y);
 
-        // imageSprite.x = app.renderer.width * 0.4;
-        // imageSprite.y = app.renderer.height * 0.4;
-
         imageSprite.anchor.x = 0.5;
         imageSprite.anchor.y = 0.5;
 
         imageSprite.interactive = true;
-        // console.log("img sprite xy:", imageSprite.x, imageSprite.y);
 
         const name = key;
         imageSprite.on("click", () => {
           setOverlay(positionDict[name]);
+          // alert("you clicked on " + name);
         });
 
         imageSprite.on("mouseover", () => {
-          imageSprite.height = imageSprite.height * 2;
-          imageSprite.width = imageSprite.width * 2;
+          imageSprite.height = imageSprite.height * 1.2;
+          imageSprite.width = imageSprite.width * 1.2;
         });
 
         imageSprite.on("mouseout", () => {
-          imageSprite.height = imageSprite.height * 0.5;
-          imageSprite.width = imageSprite.width * 0.5;
+          imageSprite.height = imageSprite.height / 1.2;
+          imageSprite.width = imageSprite.width / 1.2;
         });
 
         viewport.addChild(imageSprite);
