@@ -33,19 +33,18 @@ function App() {
         // make photo lookup and tie it to sotu json object
         //loop through photo lookup and load image keyed to pres name
         const lincoln =
-          "../resized/president_imgs/resized_president_imgs_16-lincoln.jpg";
-        const obama = "../president_imgs/44-obama.jpg";
+          "https://raw.githubusercontent.com/Nedelstein/designing-ml-final-react-app/master/resized/resized_president_imgs_01-washington.jpg";
 
         app.loader.add("Lincoln", lincoln);
-        // app.loader.add("Obama", obama);
-        // for (let i = 0; i < positions.length; i++) {
-        //   const presName = positions[i].President;
+        for (let i = 0; i < positions.length; i++) {
+          const presName = positions[i].President;
 
-        //   const date = positions[i].Date;
-        //   app.loader.add(presName, lincoln);
+          //   const date = positions[i].Date;
+          //   app.loader.add(presName, lincoln);
 
-        // positionDict[presName] = positions[i];
-        // }
+          positionDict[presName] = positions[i];
+          // console.log("pres name", presName);
+        }
         const viewport = new Viewport({
           screenWidth: window.innerWidth,
           screenHeight: window.innerHeight,
@@ -71,40 +70,39 @@ function App() {
           // console.log(app.renderer.backgroundColor);
 
           //this is where you loop through your SOTU addresses
-          // for (let key in positions) {
+          for (let key in positions) {
+            const imageSprite = new PIXI.Sprite(resources["Lincoln"].texture);
+            // const cluster_pos = positions[key].Cluster_Pos;
 
-          const imageSprite = new PIXI.Sprite(resources["Lincoln"].texture);
-          // const cluster_pos = positions[key].Cluster_Pos;
+            // imageSprite.x = app.renderer.width * (cluster_pos[0] * 2 - 1);
+            // imageSprite.y = app.renderer.width * (cluster_pos[1] * 2 - 1);
 
-          // imageSprite.x = app.renderer.width * (cluster_pos[0] * 2 - 1);
-          // imageSprite.y = app.renderer.width * (cluster_pos[1] * 2 - 1);
+            imageSprite.x = app.renderer.width * 0.4;
+            imageSprite.y = app.renderer.height * 0.4;
 
-          imageSprite.x = app.renderer.width * 0.4;
-          imageSprite.y = app.renderer.height * 0.4;
+            imageSprite.anchor.x = 0.5;
+            imageSprite.anchor.y = 0.5;
 
-          // imageSprite.anchor.x = 0.5;
-          // imageSprite.anchor.y = 0.5;
+            imageSprite.interactive = true;
+            console.log("img sprite xy:", imageSprite.x, imageSprite.y);
 
-          imageSprite.interactive = true;
-          console.log("img sprite xy:", imageSprite.x, imageSprite.y);
+            const name = key;
+            imageSprite.on("click", () => {
+              setOverlay(positionDict[name]);
+            });
 
-          // const name = key;
-          // imageSprite.on("click", () => {
-          //   setOverlay(positionDict[name]);
-          // });
+            imageSprite.on("mouseover", () => {
+              imageSprite.height = imageSprite.height * 2;
+              imageSprite.width = imageSprite.width * 2;
+            });
 
-          // imageSprite.on("mouseover", () => {
-          //   imageSprite.height = imageSprite.height * 2;
-          //   imageSprite.width = imageSprite.width * 2;
-          // });
+            imageSprite.on("mouseout", () => {
+              imageSprite.height = imageSprite.height * 0.5;
+              imageSprite.width = imageSprite.width * 0.5;
+            });
 
-          // imageSprite.on("mouseout", () => {
-          //   imageSprite.height = imageSprite.height * 0.5;
-          //   imageSprite.width = imageSprite.width * 0.5;
-          // });
-
-          viewport.addChild(imageSprite);
-          // }
+            viewport.addChild(imageSprite);
+          }
         });
       })
       .catch(err => {
