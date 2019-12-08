@@ -43,7 +43,11 @@ function App() {
           positions[i].image = image;
         }
 
-        app.loader.add(date, "../" + positions[i].image);
+        let displayImg =
+          "https://raw.githubusercontent.com/Nedelstein/designing-ml-final-react-app/master/" +
+          positions[i].image;
+
+        app.loader.add(presName, displayImg);
         app.loader.reset();
 
         positionDict[presName] = positions[i];
@@ -69,17 +73,19 @@ function App() {
       .decelerate();
 
     app.loader.load((loader, resources) => {
-      console.log("app dims:", app.renderer.width, app.renderer.height);
+      // console.log("app dims:", app.renderer.width, app.renderer.height);
 
       //loop through your SOTU addresses
-      for (let key in positions) {
+      for (let key in resources) {
         // const imageSprite = new PIXI.Sprite(resources["Lincoln"].texture);
 
         const imageSprite = new PIXI.Sprite(resources[key].texture);
-        const cluster_pos = positions[key].Cluster_Pos;
+        const cluster_pos = positionDict[key].Cluster_Pos;
 
         imageSprite.x = app.renderer.width * (cluster_pos[0] * 2 - 1);
-        imageSprite.y = app.renderer.width * (cluster_pos[1] * 2 - 1);
+        imageSprite.y = app.renderer.height * (cluster_pos[1] * 2 - 1);
+
+        console.log(imageSprite.x, imageSprite.y);
 
         // imageSprite.x = app.renderer.width * 0.4;
         // imageSprite.y = app.renderer.height * 0.4;
