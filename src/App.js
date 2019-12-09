@@ -13,7 +13,7 @@ function App() {
   const [overlay, setOverlay] = useState(null);
 
   // load custer pos onto canvas
-  useEffect(() => {
+  useState(() => {
     console.log(positions);
     const app = new PIXI.Application({
       width: window.innerWidth,
@@ -37,21 +37,20 @@ function App() {
         // const filename = image.replace(".jpg", "");
 
         //add image value to position object
-        if (presName == images[j].President) {
+        if (presName === images[j].President) {
           positions[i].image = image;
         }
 
         const displayImg =
           "https://raw.githubusercontent.com/Nedelstein/designing-ml-final-react-app/master/" +
           positions[i].image;
-        // console.log(displayImg);
 
-        // const displayImg =
-        //   "https://raw.githubusercontent.com/Nedelstein/designing-ml-final-react-app/master/resized/resized_president_imgs_04-madison.jpg";
+        // why do i need this here?????
+        // app.loader.reset();
 
-        app.loader.reset();
         app.loader.add(name, displayImg);
 
+        // console.log("name: ", name);
         positionDict[name] = positions[i];
       }
     }
@@ -75,16 +74,16 @@ function App() {
       .decelerate();
 
     app.loader.load((loader, resources) => {
-      // console.log("app dims:", app.renderer.width, app.renderer.height);
-
-      //loop through your SOTU addresses
+      //loop through SOTU addresses
       for (let key in resources) {
-        console.log("working");
-        // const imageSprite = new PIXI.Sprite(resources["Lincoln"].texture);
+        // console.log("working");
 
         const imageSprite = new PIXI.Sprite(resources[key].texture);
+
+        imageSprite.height *= 0.4;
+        imageSprite.width *= 0.4;
+
         const cluster_pos = positionDict[key].Cluster_Pos;
-        // console.log(cluster_pos);
 
         imageSprite.x = app.renderer.width * (cluster_pos[0] * 2 - 1);
         imageSprite.y = app.renderer.height * (cluster_pos[1] * 2 - 1);
@@ -99,7 +98,6 @@ function App() {
         const name = key;
         imageSprite.on("click", () => {
           setOverlay(positionDict[name]);
-          // alert("you clicked on " + name);
         });
 
         imageSprite.on("mouseover", () => {
