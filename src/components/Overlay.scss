@@ -1,6 +1,7 @@
 .overlay {
   position: fixed;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  // text-align: left;
   width: 600px;
   height: 100vh;
   right: 0;
@@ -10,4 +11,9 @@
   img {
     width: 100%;
   }
+}
+
+.speechText {
+  text-align: left;
+  margin-left: 2%;
 }

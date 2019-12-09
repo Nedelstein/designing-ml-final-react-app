@@ -9,7 +9,7 @@ import { images, positions } from "./sotu_umap.js";
 // let positions;
 
 function App() {
-  const canvas = useRef(null);
+  // const canvas = useRef(null);
   const [overlay, setOverlay] = useState(null);
 
   // load custer pos onto canvas
@@ -17,8 +17,8 @@ function App() {
     console.log(positions);
     const app = new PIXI.Application({
       width: window.innerWidth,
-      height: window.innerHeight,
-      view: canvas.current
+      height: window.innerHeight
+      // view: canvas.current
     });
     document.body.appendChild(app.view);
 
@@ -46,7 +46,7 @@ function App() {
           positions[i].image;
 
         // why do i need this here?????
-        // app.loader.reset();
+        app.loader.reset();
 
         app.loader.add(name, displayImg);
 
@@ -70,7 +70,7 @@ function App() {
     viewport
       .drag()
       .pinch()
-      .wheel()
+      // .wheel()
       .decelerate();
 
     app.loader.load((loader, resources) => {
@@ -117,7 +117,7 @@ function App() {
 
   return (
     <div className="App">
-      <canvas ref={canvas}></canvas>
+      {/* <canvas ref={canvas}></canvas> */}
       {overlay && <Overlay details={overlay} setOverlay={setOverlay} />}
     </div>
   );

@@ -57,7 +57,7 @@ const Overlay = props => {
         }}
       ></Button>
       <h2>State of the Union Address from {formatDate(date)}</h2>
-      <p1>{transcript}</p1>
+      <p className="speechText">{transcript}</p>
     </div>
   );
 };
