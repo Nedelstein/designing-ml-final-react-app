@@ -6,6 +6,8 @@ import { Viewport } from "pixi-viewport";
 
 import { images, positions } from "./sotu_umap.js";
 
+console.log(images);
+
 // let positions;
 
 function App() {
@@ -27,33 +29,41 @@ function App() {
     // make photo lookup and tie it to sotu json object
     //loop through photo lookup and load image keyed to pres name
 
-    for (let i = 0; i < positions.length; i++) {
-      for (let j = 0; j < images.length; j++) {
-        const presName = positions[i].President;
-        const date = positions[i].Date;
-        const image = images[j].image;
-        const name = image.replace(".jpg", "");
+    // for (let i = 0; i < positions.length; i++) {
+    //   for (let j = 0; j < images.length; j++) {
+    //     const presName = positions[i].President;
+    //     const date = positions[i].Date;
+    //     const image = images[j].image;
+    //     const name = image.replace(".jpg", "");
 
-        // const filename = image.replace(".jpg", "");
+    //     // const filename = image.replace(".jpg", "");
 
-        //add image value to position object
-        if (presName === images[j].President) {
-          positions[i].image = image;
-        }
+    //     //add image value to position object
+    //     if (presName === images[j].President) {
+    //       positions[i].image = image;
+    //     }
 
-        const displayImg =
-          "https://raw.githubusercontent.com/Nedelstein/designing-ml-final-react-app/master/" +
-          positions[i].image;
+    //     const displayImg =
+    //       "https://raw.githubusercontent.com/Nedelstein/designing-ml-final-react-app/master/" +
+    //       positions[i].image;
 
-        // why do i need this here?????
-        app.loader.reset();
+    //     // why do i need this here?????
+    //     app.loader.reset();
 
-        app.loader.add(name, displayImg);
+    //     app.loader.add(name, displayImg);
 
-        // console.log("name: ", name);
-        positionDict[name] = positions[i];
-      }
+    //     // console.log("name: ", name);
+    //     positionDict[name] = positions[i];
+    //   }
+    // }
+
+    for (let i in images) {
+      const displayImg =
+        "https://raw.githubusercontent.com/Nedelstein/designing-ml-final-react-app/master/" +
+        images[i]["image"];
+      app.loader.add(images[i]["President"], displayImg);
     }
+
     const viewport = new Viewport({
       screenWidth: window.innerWidth,
       screenHeight: window.innerHeight,
@@ -75,15 +85,17 @@ function App() {
 
     app.loader.load((loader, resources) => {
       //loop through SOTU addresses
-      for (let key in resources) {
+      for (let key in positions) {
         // console.log("working");
 
-        const imageSprite = new PIXI.Sprite(resources[key].texture);
+        const president = positions[key]["President"];
+
+        const imageSprite = new PIXI.Sprite(resources[president].texture);
 
         imageSprite.height *= 0.4;
         imageSprite.width *= 0.4;
 
-        const cluster_pos = positionDict[key].Cluster_Pos;
+        const cluster_pos = positions[key].Cluster_Pos;
 
         imageSprite.x = app.renderer.width * (cluster_pos[0] * 2 - 1);
         imageSprite.y = app.renderer.height * (cluster_pos[1] * 2 - 1);
@@ -97,7 +109,7 @@ function App() {
 
         const name = key;
         imageSprite.on("click", () => {
-          setOverlay(positionDict[name]);
+          setOverlay(positions[name]);
         });
 
         imageSprite.on("mouseover", () => {
