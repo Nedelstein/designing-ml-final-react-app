@@ -1,6 +1,8 @@
 import React from "react";
 import "./Overlay.scss";
 
+import { images } from "../sotu_tfidf.js";
+
 const buttonStyle = {
   margin: "10px 10px 10px 0",
   background: "white",
@@ -19,14 +21,25 @@ const formatDate = date => {
   return new Intl.DateTimeFormat("en-US").format(dateObj);
 };
 
-const Overlay = props => {
+const Overlay = (props, image) => {
   console.log(props);
   let presName = props.details.President;
   let date = props.details.Date;
+
+  // let presImg;
+  // for (let i in images) {
+  //   displayImg.push(
+  //     "https://raw.githubusercontent.com/Nedelstein/designing-ml-final-react-app/master/" +
+  //       images[i]["image"]
+  //   );
+  //   }
+
   let presImg =
     "https://raw.githubusercontent.com/Nedelstein/designing-ml-final-react-app/master/" +
-    props.details.image;
-  let transcript = props.details.Speech;
+    image;
+
+  console.log(image);
+  let summary = props.details.Summmary;
   const setOverlay = props.setOverlay;
 
   let Button = () => {
@@ -45,11 +58,7 @@ const Overlay = props => {
   return (
     <div className="overlay">
       <h1>{presName}</h1>
-      <img
-        style={overlayImgStyle}
-        src={presImg}
-        alt="img of president supposed to be here"
-      ></img>
+      <img style={overlayImgStyle} src={presImg} alt={presName}></img>
       <br />
       <Button
         onClick={() => {
@@ -57,7 +66,9 @@ const Overlay = props => {
         }}
       ></Button>
       <h2>State of the Union Address from {formatDate(date)}</h2>
-      <p className="speechText">{transcript}</p>
+      <br />
+      <h3>Summary of Speech using the LexRank method:</h3>
+      <p className="speechText">{summary}</p>
     </div>
   );
 };
