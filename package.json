@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "file-system": "^2.2.2",
     "node-sass": "^4.13.0",
     "pixi-viewport": "^4.4.1",
     "pixi.js": "^5.2.0",

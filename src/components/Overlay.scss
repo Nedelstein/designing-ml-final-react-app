@@ -1,13 +1,14 @@
 .overlay {
   position: fixed;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
   // text-align: left;
   width: 600px;
   height: 100vh;
   right: 0;
   top: 0;
-  background-color: white;
+  background-color: gainsboro;
   color: #222;
+  overflow: scroll;
   img {
     width: 100%;
   }
@@ -15,5 +16,6 @@
 
 .speechText {
   text-align: left;
-  margin-left: 2%;
+  margin-left: 3%;
+  margin-right: 2%;
 }

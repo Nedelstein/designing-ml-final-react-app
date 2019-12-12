@@ -65,8 +65,7 @@ const Overlay = props => {
         }}
       ></Button>
       <h2>State of the Union Address from {formatDate(date)}</h2>
-      <br />
-      <h3>Summary of Speech using the LexRank method:</h3>
+      <h3>Summary of SOTU Address using the LexRank method:</h3>
       <p className="speechText">{summary}</p>
     </div>
   );

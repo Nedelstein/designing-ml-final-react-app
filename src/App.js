@@ -4,13 +4,33 @@ import "./App.css";
 import * as PIXI from "pixi.js";
 import { Viewport } from "pixi-viewport";
 
+import * as fs from "file-system";
+
 import { images, positions } from "./sotu_tfidf.js";
+// const soundFolder = "../public/sounds/";
+
+import eagle1 from "./sounds/eagle1.mp3";
+import eagle2 from "./sounds/eagle2.mp3";
+import eagle3 from "./sounds/eagle3.mp3";
 
 console.log(images);
 
 // let positions;
 
 let displayImg;
+
+const hoverSound = () => {
+  // let eagle1 = soundFolder + "eagle1.mp3";
+  // let eagle2 = soundFolder + "eagle2.mp3";
+  // let eagle3 = soundFolder + "eagle3.mp3";
+  let eagles = [eagle1, eagle2, eagle3];
+
+  let sound = eagles[Math.floor(Math.random() * eagles.length)];
+  // let audio = new Audio(sound);
+  let audio = document.getElementById();
+  console.log(sound);
+  audio.play();
+};
 
 function App() {
   // const canvas = useRef(null);
@@ -48,10 +68,15 @@ function App() {
       interaction: app.renderer.plugins.interaction
     });
 
+    viewport.moveCorner(-1300, -1300);
+
     // add viewport to stage
     app.stage.addChild(viewport);
 
-    app.renderer.backgroundColor = 0xff00cc;
+    // app.stage.position.x = viewport.width / 2;
+    // app.stage.position.y = viewport.height / 2;
+
+    app.renderer.backgroundColor = "black";
     // interaction plugins
     viewport
       .drag()
@@ -93,6 +118,8 @@ function App() {
         imageSprite.on("mouseover", () => {
           imageSprite.height = imageSprite.height * 1.2;
           imageSprite.width = imageSprite.width * 1.2;
+
+          // hoverSound();
         });
 
         imageSprite.on("mouseout", () => {
@@ -104,7 +131,6 @@ function App() {
       }
     });
   });
-
   return (
     <div className="App">
       {/* <canvas ref={canvas}></canvas> */}
