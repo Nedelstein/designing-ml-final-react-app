@@ -21,7 +21,7 @@ const formatDate = date => {
   return new Intl.DateTimeFormat("en-US").format(dateObj);
 };
 
-const Overlay = (props, image) => {
+const Overlay = props => {
   console.log(props);
   let presName = props.details.President;
   let date = props.details.Date;
@@ -34,12 +34,11 @@ const Overlay = (props, image) => {
   //   );
   //   }
 
-  let presImg =
-    "https://raw.githubusercontent.com/Nedelstein/designing-ml-final-react-app/master/" +
-    image;
-
-  console.log(image);
   let summary = props.details.Summmary;
+  let image = props.details.image;
+  summary = summary.replace("[", "");
+  summary = summary.replace("]", "");
+
   const setOverlay = props.setOverlay;
 
   let Button = () => {
@@ -58,7 +57,7 @@ const Overlay = (props, image) => {
   return (
     <div className="overlay">
       <h1>{presName}</h1>
-      <img style={overlayImgStyle} src={presImg} alt={presName}></img>
+      <img style={overlayImgStyle} src={image} alt={presName}></img>
       <br />
       <Button
         onClick={() => {

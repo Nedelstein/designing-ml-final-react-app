@@ -30,9 +30,14 @@ function App() {
 
     for (let i in images) {
       displayImg =
-        "https://raw.githubusercontent.com/Nedelstein/designing-ml-final-react-app/master/" +
+        "https://raw.githubusercontent.com/Nedelstein/designing-ml-final-react-app/master/public/" +
         images[i]["image"];
       app.loader.add(images[i]["President"], displayImg);
+      for (let j = 0; j < positions.length; j++) {
+        if (positions[j].President === images[i].President) {
+          positions[j].image = displayImg;
+        }
+      }
     }
 
     const viewport = new Viewport({
@@ -79,9 +84,10 @@ function App() {
         imageSprite.interactive = true;
 
         const name = key;
+        // console.log(images[name].image);
 
         imageSprite.on("click", () => {
-          setOverlay(positions[name], imageSprite.texture.baseTexture.source);
+          setOverlay(positions[name]);
         });
 
         imageSprite.on("mouseover", () => {
