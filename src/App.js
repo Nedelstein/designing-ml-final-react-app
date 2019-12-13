@@ -89,8 +89,8 @@ function App() {
         imageSprite.width *= 0.3;
         const cluster_pos = positions[key].Cluster_Pos;
 
-        imageSprite.x = 3 * app.renderer.width * (cluster_pos[0] * 2 - 1);
-        imageSprite.y = 3 * app.renderer.height * (cluster_pos[1] * 2 - 1);
+        imageSprite.x = 5 * app.renderer.width * (cluster_pos[0] * 2 - 1);
+        imageSprite.y = 5 * app.renderer.height * (cluster_pos[1] * 2 - 1);
 
         imageSprite.anchor.x = 0.5;
         imageSprite.anchor.y = 0.5;
