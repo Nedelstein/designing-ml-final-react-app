@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import Overlay from "./components/Overlay";
 
 import "./App.css";
@@ -10,17 +10,17 @@ import { Viewport } from "pixi-viewport";
 // import * as fs from "file-system";
 
 import { images, positions } from "./sotu_tfidf.js";
-// const soundFolder = "./sounds/";
+const soundFolder = "./sounds/";
 console.log(images);
 
 // let positions;
 
 let displayImg;
 
-// let eagle1 = soundFolder + "eagle1.mp3";
-// let eagle2 = soundFolder + "eagle2.mp3";
-// let eagle3 = soundFolder + "eagle3.mp3";
-// let eagles = [eagle1, eagle2, eagle3];
+let eagle1 = soundFolder + "eagle1.mp3";
+let eagle2 = soundFolder + "eagle2.mp3";
+let eagle3 = soundFolder + "eagle3.mp3";
+let eagles = [eagle1, eagle2, eagle3];
 
 function App() {
   // const canvas = useRef(null);
@@ -73,11 +73,10 @@ function App() {
 
     app.loader.load((loader, resources) => {
       // let player = document.createElement("audio");
-      // let sound = eagles[Math.floor(Math.random() * eagles.length)];
+      let sound = eagles[Math.floor(Math.random() * eagles.length)];
+      console.log(sound);
+      let audio = new Audio(sound);
       //loop through SOTU addresses
-
-      // const topGroup = new PIXI.display.Group(1, true);
-      // const bottomGroup = new PIXI.display.Group(100, true);
 
       for (let key in positions) {
         // console.log("working");
@@ -86,8 +85,6 @@ function App() {
 
         const imageSprite = new PIXI.Sprite(resources[president].texture);
 
-        // imageSprite.parentGroup = bottomGroup;
-
         imageSprite.height *= 0.3;
         imageSprite.width *= 0.3;
         const cluster_pos = positions[key].Cluster_Pos;
@@ -95,23 +92,18 @@ function App() {
         imageSprite.x = 3 * app.renderer.width * (cluster_pos[0] * 2 - 1);
         imageSprite.y = 3 * app.renderer.height * (cluster_pos[1] * 2 - 1);
 
-        // console.log(imageSprite.x, imageSprite.y);
-
         imageSprite.anchor.x = 0.5;
         imageSprite.anchor.y = 0.5;
         imageSprite.interactive = true;
 
-        // imageSprite.player = document.createElement("audio");
-        // imageSprite.player.src = eagle1;
-
         const name = key;
         // console.log(images[name].image);
         imageSprite.zIndex = 0;
-        console.log(imageSprite);
 
         imageSprite.on("click", () => {
           setOverlay(positions[name]);
           // imageSprite.player.play();
+          audio.play();
         });
 
         imageSprite.on("mouseover", () => {

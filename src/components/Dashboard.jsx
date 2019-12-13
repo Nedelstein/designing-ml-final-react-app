@@ -39,6 +39,6 @@ class Dashboard extends Component {
   }
 }
 export default Dashboard;
-// const container = document.createElement("div");
-// document.body.appendChild(container);
-// ReactDOM.render(<Dashboard />, container);
+const container = document.createElement("div");
+document.body.appendChild(container);
+ReactDOM.render(<Dashboard />, container);
