@@ -34,7 +34,7 @@ const Overlay = props => {
   //   );
   //   }
 
-  let summary = props.details.Summmary;
+  let summary = props.details.Summary;
   let image = props.details.image;
   summary = summary.replace("[", "");
   summary = summary.replace("]", "");
