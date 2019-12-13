@@ -26,9 +26,9 @@ class Dashboard extends Component {
         <Modal show={this.state.show} handleClose={this.hideModal}>
           <p style={modalText}>
             Enter to view every State of the Union Address clustered according
-            to the transcript similarity.
-            <br /> Click on a President's image to view the corresponding State
-            of the Union
+            to transcript similarity.
+            <br /> Click on a President's image to view a summary of their
+            corresponding State of the Union
           </p>
         </Modal>
         {/* <button type="button" onClick={this.showModal}>

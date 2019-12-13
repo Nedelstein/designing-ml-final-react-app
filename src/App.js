@@ -5,22 +5,19 @@ import "./App.css";
 import * as PIXI from "pixi.js";
 
 import { Viewport } from "pixi-viewport";
-// import ReactAudioPlayer from "react-audio-player";
-
-// import * as fs from "file-system";
 
 import { images, positions } from "./sotu_tfidf.js";
-const soundFolder = "./sounds/";
+// const soundFolder = "../public/sounds/";
 console.log(images);
 
 // let positions;
 
 let displayImg;
 
-let eagle1 = soundFolder + "eagle1.mp3";
-let eagle2 = soundFolder + "eagle2.mp3";
-let eagle3 = soundFolder + "eagle3.mp3";
-let eagles = [eagle1, eagle2, eagle3];
+// let eagle1 = soundFolder + "eagle1.mp3";
+// let eagle2 = soundFolder + "eagle2.mp3";
+// let eagle3 = soundFolder + "eagle3.mp3";
+// let eagles = [eagle1, eagle2, eagle3];
 
 function App() {
   // const canvas = useRef(null);
@@ -73,9 +70,10 @@ function App() {
 
     app.loader.load((loader, resources) => {
       // let player = document.createElement("audio");
-      let sound = eagles[Math.floor(Math.random() * eagles.length)];
-      console.log(sound);
-      let audio = new Audio(sound);
+      // let sound = "../public/sounds/eagle3.mp3";
+      // let sound = eagles[Math.floor(Math.random() * eagles.length)];
+      // console.log(eagle3);
+      // let audio = new Audio(eagle2);
       //loop through SOTU addresses
 
       for (let key in positions) {
@@ -103,7 +101,8 @@ function App() {
         imageSprite.on("click", () => {
           setOverlay(positions[name]);
           // imageSprite.player.play();
-          audio.play();
+          // audio.play();
+          // player.play(sound);
         });
 
         imageSprite.on("mouseover", () => {
