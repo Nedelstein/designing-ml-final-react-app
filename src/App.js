@@ -96,27 +96,29 @@ function App() {
 
         const name = key;
         // console.log(images[name].image);
-        imageSprite.zIndex = 0;
+        // imageSprite.zIndex = 0;
 
         imageSprite.on("click", () => {
           setOverlay(positions[name]);
           // imageSprite.player.play();
           // audio.play();
           // player.play(sound);
+          console.log(imageSprite);
         });
 
         imageSprite.on("mouseover", () => {
           imageSprite.height = imageSprite.height * 1.2;
           imageSprite.width = imageSprite.width * 1.2;
 
-          // imageSprite.zOrder += 100;
-          // console.log(imageSprite._zIndex);
+          imageSprite.zIndex += 10;
+          console.log(imageSprite.zIndex);
           // imageSprite.parentGroup = topGroup;
         });
 
         imageSprite.on("mouseout", () => {
           imageSprite.height = imageSprite.height / 1.2;
           imageSprite.width = imageSprite.width / 1.2;
+          imageSprite.zIndex -= 10;
         });
 
         viewport.addChild(imageSprite);

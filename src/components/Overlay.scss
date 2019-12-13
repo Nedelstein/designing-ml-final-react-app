@@ -9,6 +9,9 @@
   background-color: gainsboro;
   color: #222;
   overflow: scroll;
+  transition: opacity 0.5s;
+  opacity: 1;
+
   img {
     width: 100%;
   }

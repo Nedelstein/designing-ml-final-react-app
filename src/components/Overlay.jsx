@@ -26,14 +26,6 @@ const Overlay = props => {
   let presName = props.details.President;
   let date = props.details.Date;
 
-  // let presImg;
-  // for (let i in images) {
-  //   displayImg.push(
-  //     "https://raw.githubusercontent.com/Nedelstein/designing-ml-final-react-app/master/" +
-  //       images[i]["image"]
-  //   );
-  //   }
-
   let summary = props.details.Summary;
   let image = props.details.image;
   summary = summary.replace("[", "");
