@@ -7,7 +7,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "file-system": "^2.2.2",
-    "node-sass": "^4.13.0",
+    "node-sass": "^7.0.0",
     "pixi-layers": "^0.2.3",
     "pixi-sound": "^3.0.4",
     "pixi-viewport": "^4.4.1",
